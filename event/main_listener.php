@@ -121,6 +121,8 @@ class main_listener implements EventSubscriberInterface
 			'core.ucp_pm_view_message'				=> 'ucp_pm_view_message',
 			// Custom events for integration with Contact Admin Extension
 			'rmcgirr83.contactadmin.modify_data_and_error'	=> 'user_sfs_validate_registration',
+			// phpBB default contact us page
+			'core.message_admin_form_submit_before'	=> 'message_admin_form_submit_before',
 		];
 	}
 
@@ -217,11 +219,14 @@ class main_listener implements EventSubscriberInterface
 	*/
 	public function poster_modify_message_text($event)
 	{
-		$event['post_data'] = array_merge($event['post_data'], [
-			'email'	=> strtolower($this->request->variable('email', '')),
-			'username' => strtolower($this->request->variable('username', '')),
-			'user_ip' => $this->user->ip
-		]);
+		if ($event['mode'] == 'post' && $this->user->data['user_id'] == ANONYMOUS && $this->config['allow_sfs'])
+		{
+			$event['post_data'] = array_merge($event['post_data'], [
+				'email'	=> strtolower($this->request->variable('email', '')),
+				'username' => strtolower($this->request->variable('username', '')),
+				'user_ip' => $this->user->ip
+			]);
+		}
 	}
 
 	/*
@@ -418,6 +423,53 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/*
+	* message_admin_form_submit_before
+	*
+	* @param	$event	the event object
+	* @return 	null
+	* @access	public
+	*/
+	public function message_admin_form_submit_before($event)
+	{
+		if ($this->config['allow_sfs'] == false)
+		{
+			return false;
+		}
+
+		$errors = $event['errors'];
+
+		// validate the user ip
+		$userip_error = $this->validate_ip($this->user->ip);
+		if ($userip_error)
+		{
+			$errors[] = $userip_error;
+		}
+
+		/* On registration and only when all errors have cleared
+		 * do not want the admin message area to fill up
+		*/
+		if (!sizeof($errors))
+		{
+			$check = $this->stopforumspam_check($this->request->variable('name', '', true), $this->user->ip, $this->request->variable('email', ''));
+
+			if ($check)
+			{
+				if ($this->config['sfs_down'] && $check === 'sfs_down')
+				{
+					return;
+				}
+				$errors[] = $this->show_message($check);
+				// now ban the spammer by IP
+				if (is_int($check) && $this->config['sfs_ban_ip'])
+				{
+					$this->sfsapi->sfs_ban('ip', $this->user->ip, (int) $check);
+				}
+			}
+		}
+		$event['errors'] = $errors;
+	}
+
+	/*
 	* show_message
 	* @param 	string	$check 		the type of check we are, uhmmm, checking
 	* @return 	string
@@ -470,9 +522,8 @@ class main_listener implements EventSubscriberInterface
 		$json_decode = json_decode($json, true);
 
 		// If there is a curl error as set in sfs_api, log the error
-		if (isset($json_decode['curl_error']))
+		if (isset($json_decode[$this->language->lang('CURL_ERROR')]))
 		{
-			$this->log->add('admin', $this->user->data['user_id'], $ip, 'LOG_SFS_CURL_ERROR', false, [$json_decode['curl_error']]);
 			return 'sfs_down';
 		}
 

@@ -129,7 +129,7 @@ class reporttosfs
 			throw new http_exception(403, 'POST_NOT_EXIST');
 		}
 
-		$sql = 'SELECT p.sfs_reported, p.poster_ip, p.topic_id, p.forum_id, u.username, u.user_email
+		$sql = 'SELECT p.*, u.username, u.user_email
 			FROM ' . POSTS_TABLE . ' p
 			LEFT JOIN ' . USERS_TABLE . ' u on p.poster_id = u.user_id
 			WHERE p.post_id = ' . (int) $postid . ' AND p.poster_id = ' . (int) $posterid;
@@ -143,11 +143,18 @@ class reporttosfs
 			throw new http_exception(403, 'INFO_NOT_FOUND');
 		}
 
+		if (!function_exists('generate_text_for_display'))
+		{
+			include($this->root_path . 'includes/functions_privmsgs.' . $this->php_ext);
+		}
 		$username = $row['username'];
 		$userip = $row['poster_ip'];
 		$useremail = $row['user_email'];
 		$forumid = (int) $row['forum_id'];
 		$topicid = (int) $row['topic_id'];
+		$parse_flags = ($row['bbcode_bitfield'] ? OPTION_FLAG_BBCODE : 0);
+		$parse_flags |= ($row['enable_smilies'] ? OPTION_FLAG_SMILIES : 0);
+		$evidence = generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], $parse_flags, true);
 		$sfs_reported = (int) $row['sfs_reported'];
 
 		$admins_mods = $this->sfsgroups->getadminsmods($forumid);
@@ -183,16 +190,37 @@ class reporttosfs
 
 		if (confirm_box(true))
 		{
-			$response = $this->sfsapi->sfsapi('add', $username, $userip, $useremail, $this->config['sfs_api_key']);
+			$response = $this->sfsapi->sfsapi('add', $username, $userip, $useremail, $evidence, $this->config['sfs_api_key']);
 
-			if (!$response && $this->request->is_ajax())
+			$json_decode = json_decode($response, true);
+			// ajax stuffs
+			if (isset($json_decode[$this->language->lang('CURL_ERROR')]) && $this->request->is_ajax())
 			{
 				$data = [
-					'MESSAGE_TITLE'	=> $this->language->lang('ERROR'),
+					'MESSAGE_TITLE'	=> $this->language->lang('AJAX_ERROR_TITLE'),
+					'MESSAGE_TEXT'	=> $json_decode[$this->language->lang('CURL_ERROR')],
+					'success'	=> false,
+				];
+				return new JsonResponse($data);
+			}
+			else if (!$response && $this->request->is_ajax())
+			{
+				$data = [
+					'MESSAGE_TITLE'	=> $this->language->lang('AJAX_ERROR_TITLE'),
 					'MESSAGE_TEXT'	=> $this->language->lang('SFS_ERROR_MESSAGE'),
 					'success'	=> false,
 				];
 				return new JsonResponse($data);
+			}
+			//non-ajax stuffs
+			else if (isset($json_decode[$this->language->lang('CURL_ERROR')]))
+			{
+				$this->template->assign_vars([
+					'MESSAGE_TITLE' => $this->language->lang('ERROR'),
+					'MESSAGE_TEXT'	=> $json_decode[$this->language->lang('CURL_ERROR')]
+				]);
+
+				return $this->helper->render('message_body.html');
 			}
 			else if (!$response)
 			{

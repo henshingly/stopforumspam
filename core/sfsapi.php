@@ -63,7 +63,7 @@ class sfsapi
 	* @param	$apikey			the api key of the forum
 	* @return 	bool|string		return true on success or false on failure or string on curl error
 	*/
-	public function sfsapi($type, $username, $userip, $useremail, $apikey = '')
+	public function sfsapi($type, $username, $userip, $useremail, $evidence = '', $apikey = '')
 	{
 		// We'll use curl..most servers have it installed as default
 		if (!function_exists('curl_init'))
@@ -83,6 +83,7 @@ class sfsapi
 				'username' => $username,
 				'ip' => $userip,
 				'email' => $useremail,
+				'evidence' => $evidence,
 				'api_key' => $apikey
 			];
 
@@ -116,9 +117,11 @@ class sfsapi
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 		// if curl isn't set correctly on server
-		if (curl_exec($ch) === false)
+		if ($contents === false)
 		{
-			$error_message = array('curl_error' => curl_error($ch));
+			$error_message = array($this->language->lang('CURL_ERROR') => curl_error($ch));
+			// If there is a curl error, log the error
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_SFS_CURL_ERROR', false, [$error_message[$this->language->lang('CURL_ERROR')]]);
 		}
 		curl_close($ch);
 
