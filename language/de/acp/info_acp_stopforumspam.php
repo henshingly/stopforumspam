@@ -40,12 +40,12 @@ $lang = array_merge($lang, [
 	// ACP message logs
 	'LOG_SFS_MESSAGE'				=> '<strong>Stop Forum Spam ausgelöst</strong>:<br />Benutzername: %1$s<br />IP: %2$s<br />Email: %3$s',
 	'LOG_SFS_DOWN'					=> '<strong>Stop Forum Spam war während einer Registrierung oder eines Forumsbeitrags ausgefallen</strong>',
-	'LOG_SFS_DOWN_USER_ALLOWED' 	=> '<strong>Stop Forum Spam war ausgefallen.</strong> Folgender Benutzer wurde im Forum zugelassen:<br />Benutzername: %1$s<br />IP:%2$s<br />Email: %3$s',
+	'LOG_SFS_DOWN_USER_ALLOWED'		=> '<strong>Stop Forum Spam war ausgefallen.</strong> Folgender Benutzer wurde im Forum zugelassen:<br />Benutzername: %1$s<br />IP:%2$s<br />Email: %3$s',
 	'LOG_SFS_NEED_CURL'				=> 'Die Stop Forum Spam Erweiterung benötigt <strong>cURL</strong>, um korrekt zu funktionieren. Bitte sprechen Sie mit Ihrem Server-Host, um cURL zu installieren und zu aktivieren.',
 	'LOG_SFS_CURL_ERROR'			=> '<strong>Stop Forum Spam cURL Fehler</strong><br>» %1$s',
 	'LOG_SFS_CONFIG_SAVED'			=> '<strong>Einstellungen Stop Forum Spam geändert</strong>',
 	'LOG_SFS_REPORTED'				=> '<strong>Benutzer wurde Stop Forum Spam gemeldet</strong><br>» %1$s',
 	'LOG_SFS_PM_REPORTED'			=> '<strong>Benutzer-PM wurde an Stop Forum Spam gemeldet</strong><br>» %1$s',
 	'LOG_SFS_REPORTED_CLEARED'		=> 'Gemeldete Beiträge und private Nachrichten an Stop Forum Spam wurden gelöscht',
-	'LOG_ADMINSMODS_CACHE_BUILT'	=> 'Stop Forum Spam Admins und Mods Cache wurde erstellt',
+	'LOG_ADMINSMODS_CACHE_BUILT'	=> 'Stop Forum Spam Cache füt Administratoren und Mods wurde erstellt',
 ]);

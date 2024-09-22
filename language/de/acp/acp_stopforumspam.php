@@ -49,7 +49,7 @@ $lang = array_merge($lang, [
 	'SFS_DOWN'						=> 'Zulassen, wenn Stop Forum Spam nicht verfügbar ist',
 	'SFS_DOWN_EXPLAIN'				=> 'Soll die Registrierung/das Posten erlaubt sein, wenn die Stop Forum Spam-Website ausgefallen ist?',
 	'SFS_API_KEY'					=> 'Stop Forum Spam API Schlüssel',
-	'SFS_API_KEY_EXPLAIN'			=> 'Wenn Du Spammer an die Stop Forum Spam-Datenbank senden möchtest, gebe Deinen API-Schlüssel von <a target="_blank" href="http://www.Stop Forum Spam.com/keys" rel="noreferrer noopener">Stop Forum Spam</a> hier ein. Du mußt auf der SFS-Website registriert sein, um einen API-Schlüssel zu erhalten.',
+	'SFS_API_KEY_EXPLAIN'			=> 'Wenn Du Spammer an die Stop Forum Spam Datenbank senden möchtest, gebe Deinen API-Schlüssel von <a target="_blank" href="https://www.stopforumspam.com/keys" rel="noreferrer noopener">Stop Forum Spam</a> hier ein. Du mußt auf der SFS-Website registriert sein, um einen API-Schlüssel zu erhalten.',
 	'SFS_NEED_CACHE'				=> 'Es gibt einen API-Schlüssel, aber es wurde kein Cache für Admins und Mods erstellt. Bitte klicke auf den Button um den Cache für Admins und Mods zu generieren, ansonsten können diese gemeldet werden.',
 	'SFS_NOTIFY'					=> 'Board Benachrichtigung',
 	'SFS_NOTIFY_EXPLAIN'			=> 'Wenn "Ja" ausgewählt und oben ein API-Schlüssel festgelegt ist, werden auch Board-Benachrichtigungen ausgelöst, wenn ein Beitrag gemeldet wird, um Foren Spam zu stoppen',
@@ -73,11 +73,11 @@ $lang = array_merge($lang, [
 	'SFS_REPORTED_CLEARED'			=> 'An Stop Forum Spam gemeldete Beiträge und private Nachrichten wurden zurückgesetzt.',
 	//Donation
 	'PAYPAL_IMAGE_URL'				=> 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
-	'PAYPAL_ALT'					=> 'Spenden mit PayPal',
+	'PAYPAL_ALT'					=> 'Spende über PayPal',
 	'BUY_ME_A_BEER_URL'				=> 'https://paypal.me/RMcGirr83',
 	'BUY_ME_A_BEER'					=> 'Kauf mir ein Bier, für die Erstellung dieser Erweiterung',
 	'BUY_ME_A_BEER_SHORT'			=> 'Spende für diese Erweiterung',
-	'BUY_ME_A_BEER_EXPLAIN'			=> 'Diese Erweiterung ist völlig kostenlos. Es ist ein Projekt, mit dem ich meine Zeit zum Vergnügen und zur Nutzung der phpBB-Community verbringe. Wenn Du diese Erweiterung gerne verwendest oder Dein Forum davon profitiert hat, denke doch bitte daran <a href="https://paypal.me/RMcGirr83" target="_blank" rel="noreferrer noopener">mir ein Bier zu kaufen</a>. Ich würde es sehr zu schätzen wissen: <i class="fa fa-smile-o" style="color:green;font-size:1.5em;" aria-hidden="true"></i>',
-	'SFS_CONTACTADMIN_EXT'			=> 'Kontakt Admin Erweiterung zulassen',
-	'SFS_CONTACTADMIN_EXT_EXPLAIN'	=> 'Wenn Ja festgelegt und die Kontaktverwaltungserweiterung installiert ist, wird diese Erweiterung in die Kontaktverwaltungserweiterung integriert.'
+	'BUY_ME_A_BEER_EXPLAIN'			=> 'Diese Erweiterung ist völlig kostenlos. Es ist ein Projekt, mit dem ich meine Zeit zum Vergnügen und zur Nutzung der phpBB-Community verbringe. Wenn Du diese Erweiterung gerne verwendest oder Dein Forum davon profitiert hat, denke doch bitte daran <a href="https://paypal.me/RMcGirr83" target="_blank" rel="noreferrer noopener">mir ein Bier zu kaufen</a>. Ich wäre sehr dankbar. <i class="fa fa-smile-o" style="color:green;font-size:1.5em;" aria-hidden="true"></i>',
+	'SFS_CONTACTADMIN_EXT'			=> 'Erweiterung "Contact Admin" zulassen',
+	'SFS_CONTACTADMIN_EXT_EXPLAIN'	=> 'Wenn Ja festgelegt und die Erweiterung "Contact Admin" installiert ist, wird diese Erweiterung in die Erweiterung "Contact Admin" integriert.'
 ]);

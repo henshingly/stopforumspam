@@ -34,5 +34,5 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, [
-	'LOG_SFS_REPORTED' => '<strong>Um Foren Spam zu stoppen wurde der Benutzer gemeldet</strong><br>» %1$s',
+	'LOG_SFS_REPORTED' => '<strong>Benutzer wurde an Stop Forum Spam gemeldet</strong><br>» %1$s',
 ]);
