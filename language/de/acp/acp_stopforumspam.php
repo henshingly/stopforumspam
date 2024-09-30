@@ -79,5 +79,5 @@ $lang = array_merge($lang, [
 	'BUY_ME_A_BEER_SHORT'			=> 'Spende für diese Erweiterung',
 	'BUY_ME_A_BEER_EXPLAIN'			=> 'Diese Erweiterung ist völlig kostenlos. Es ist ein Projekt, mit dem ich meine Zeit zum Vergnügen und zur Nutzung der phpBB-Community verbringe. Wenn Du diese Erweiterung gerne verwendest oder Dein Forum davon profitiert hat, denke doch bitte daran <a href="https://paypal.me/RMcGirr83" target="_blank" rel="noreferrer noopener">mir ein Bier zu kaufen</a>. Ich wäre sehr dankbar. <i class="fa fa-smile-o" style="color:green;font-size:1.5em;" aria-hidden="true"></i>',
 	'SFS_CONTACTADMIN_EXT'			=> 'Erweiterung "Kontakt zum Admin" zulassen',
-	'SFS_CONTACTADMIN_EXT_EXPLAIN'	=> 'Wenn Ja festgelegt und die Erweiterung "Kontakt zum Admin" installiert ist, wird diese Erweiterung in die Erweiterung "Kontakt zum Admin" integriert.'
+	'SFS_CONTACTADMIN_EXT_EXPLAIN'	=> 'Wenn Ja ausgewählt und die Erweiterung "Kontakt zum Admin" installiert ist, wird diese Erweiterung in die Erweiterung "Kontakt zum Admin" integriert.'
 ]);
